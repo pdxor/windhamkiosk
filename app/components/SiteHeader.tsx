@@ -12,8 +12,8 @@ const navItems = [
 
 export function SiteHeader() {
   return (
-    <header className="flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius)] border border-[var(--stone)] bg-white/92 px-4 py-3 shadow-sm backdrop-blur-md sm:px-5">
-      <BrandLogo />
+    <header className="flex w-full min-w-0 flex-wrap items-center justify-between gap-3 rounded-[var(--radius)] border border-[var(--stone)] bg-white/92 px-3 py-3 shadow-sm backdrop-blur-md sm:gap-4 sm:px-5">
+      <BrandLogo variant="header" className="min-w-0 flex-1 basis-auto" />
       <nav
         aria-label="Main navigation"
         className="hidden flex-1 justify-center gap-5 text-sm font-medium text-[var(--charcoal)] lg:flex"

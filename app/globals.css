@@ -16,11 +16,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  overflow-x: hidden;
+  max-width: 100%;
   font-family:
     Inter,
     ui-sans-serif,
@@ -40,6 +43,38 @@ body {
     Times,
     serif;
   letter-spacing: -0.01em;
+}
+
+.theme-line {
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    Cambria,
+    "Times New Roman",
+    Times,
+    serif;
+  letter-spacing: 0.01em;
+}
+
+.hero-vintage-overlay {
+  background: linear-gradient(
+      90deg,
+      var(--cream) 0%,
+      rgba(246, 241, 232, 0.96) 18%,
+      rgba(246, 241, 232, 0.78) 40%,
+      rgba(246, 241, 232, 0.35) 62%,
+      rgba(246, 241, 232, 0.08) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(91, 67, 54, 0.06) 0%,
+      transparent 45%,
+      rgba(78, 123, 106, 0.08) 100%
+    );
+}
+
+.hero-image-tone {
+  filter: sepia(0.12) saturate(1.05) contrast(1.02) brightness(1.03);
 }
 
 ::selection {
