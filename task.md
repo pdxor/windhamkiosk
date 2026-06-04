@@ -44,6 +44,17 @@ existing landing page.
 ## Notes / Decisions
 
 - New route lives at `/command-center`; home page (`/`) is untouched.
+
+---
+
+# Task: Site feedback board
+
+- [x] Shared types in `app/lib/feedback.ts`
+- [x] File store (`data/feedback.json` + `public/feedback.json`) for local dev
+- [x] `POST/GET /api/feedback` when running `npm run dev`
+- [x] Netlify function `netlify/functions/feedback` (Blobs) for production saves
+- [x] Page at `/feedback` with form + published list
+- [x] Nav link from home header; agent-readable `/feedback.json`
 - Reuses existing design tokens in `app/globals.css` (forest-green, earth-brown,
   cream) and adds priority accent tokens.
 - Data is static/in-code for now (no database). See `databasechanges.md`.

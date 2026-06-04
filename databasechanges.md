@@ -14,6 +14,7 @@ environment it targets.
 | Date | Env | Type | Change | Status |
 | ---- | --- | ---- | ------ | ------ |
 | 2026-06-04 | n/a | — | Command Center dashboard added. Uses static in-code data (`app/lib/inbox.ts`). No SQL, RLS, or schema changes. | applied |
+| 2026-06-04 | n/a | — | Site feedback board: JSON files (`data/feedback.json`, `public/feedback.json`) + Netlify Blobs store `windham-kiosk-feedback` via `netlify/functions/feedback.mjs`. No D1/SQL/RLS. | applied |
 
 > No SQL or RLS has been run against any production or staging database.
 > When a database is introduced, record every migration/policy here before

@@ -8,6 +8,7 @@ const navItems = [
   { href: "#digital", label: "Resources" },
   { href: "#volunteer", label: "Events" },
   { href: "#connect", label: "Contact" },
+  { href: "/feedback", label: "Feedback" },
 ];
 
 export function SiteHeader() {
