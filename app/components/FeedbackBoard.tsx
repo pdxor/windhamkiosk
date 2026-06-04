@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   getFeedbackApiUrl,
+  getFeedbackJsonUrl,
   parseFeedbackStore,
+  parseJsonResponse,
+  usesNetlifyFeedbackApi,
   type FeedbackEntry,
 } from "@/app/lib/feedback";
 import { FeedbackCard } from "./FeedbackCard";
@@ -30,26 +33,48 @@ export function FeedbackBoard({ initialEntries }: FeedbackBoardProps) {
     setStatus("loading");
     setError(null);
 
-    const apiUrl = getFeedbackApiUrl();
-    const sources = [apiUrl, "/feedback.json"];
+    const sources = usesNetlifyFeedbackApi()
+      ? [getFeedbackApiUrl()]
+      : [getFeedbackApiUrl(), getFeedbackJsonUrl()];
 
     for (const url of sources) {
       try {
         const response = await fetch(url, { cache: "no-store" });
-        if (!response.ok) continue;
-        const data = await response.json();
+        const data = await parseJsonResponse(response);
+        if (!response.ok) {
+          const message =
+            typeof data === "object" &&
+            data !== null &&
+            "error" in data &&
+            typeof (data as { error: unknown }).error === "string"
+              ? (data as { error: string }).error
+              : null;
+          throw new Error(message ?? `Could not load notes (${response.status}).`);
+        }
         const store = parseFeedbackStore(data);
         setEntries(store.entries);
         setStatus("idle");
         return;
-      } catch {
-        // try next source
+      } catch (loadError) {
+        if (url === sources[sources.length - 1]) {
+          const message =
+            loadError instanceof Error
+              ? loadError.message
+              : "Could not load feedback right now.";
+          setError(message);
+          setStatus("idle");
+        }
       }
     }
-
-    setError("Could not load feedback right now. Please refresh and try again.");
-    setStatus("idle");
   }, []);
+
+  // Hydrate from the live store on deploy (static HTML starts with an empty list).
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      void loadEntries();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [loadEntries]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -63,10 +88,16 @@ export function FeedbackBoard({ initialEntries }: FeedbackBoardProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ author, page, message }),
       });
-      const data = await response.json();
+      const data = (await parseJsonResponse(response)) as {
+        error?: string;
+        entries?: FeedbackEntry[];
+        entry?: FeedbackEntry;
+      };
 
       if (!response.ok) {
-        setError(typeof data.error === "string" ? data.error : "Could not save.");
+        setError(
+          typeof data.error === "string" ? data.error : "Could not save your note."
+        );
         setStatus("idle");
         return;
       }
@@ -81,10 +112,14 @@ export function FeedbackBoard({ initialEntries }: FeedbackBoardProps) {
         await loadEntries();
       }
       setMessage("");
-      setSuccess("Thank you — your note is on the board for the team and agent.");
+      setSuccess("Thank you — your note is saved and on the board.");
       setStatus("idle");
-    } catch {
-      setError("Could not save feedback. Check your connection and try again.");
+    } catch (submitError) {
+      const message =
+        submitError instanceof Error
+          ? submitError.message
+          : "Could not save feedback. Check your connection and try again.";
+      setError(message);
       setStatus("idle");
     }
   }
@@ -192,12 +227,12 @@ export function FeedbackBoard({ initialEntries }: FeedbackBoardProps) {
         <p className="mt-2 text-sm text-[var(--charcoal)]/75">
           Agents can also read{" "}
           <a
-            href="/feedback.json"
+            href={getFeedbackJsonUrl()}
             className="font-semibold text-[var(--forest-green)] underline-offset-2 hover:underline"
           >
-            /feedback.json
+            {getFeedbackJsonUrl()}
           </a>{" "}
-          for machine-friendly updates.
+          for the live, saved list.
         </p>
 
         {status === "loading" && entries.length === 0 ? (

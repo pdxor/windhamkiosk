@@ -126,3 +126,39 @@ export function getFeedbackApiUrl(): string {
   }
   return "/.netlify/functions/feedback";
 }
+
+/** Live JSON for agents — same data as the API on Netlify. */
+export function getFeedbackJsonUrl(): string {
+  if (typeof window === "undefined") {
+    return "/feedback.json";
+  }
+  const host = window.location.hostname;
+  if (host === "localhost" || host === "127.0.0.1") {
+    return "/feedback.json";
+  }
+  return "/.netlify/functions/feedback";
+}
+
+export function usesNetlifyFeedbackApi(): boolean {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  const host = window.location.hostname;
+  return host !== "localhost" && host !== "127.0.0.1";
+}
+
+export async function parseJsonResponse(response: Response): Promise<unknown> {
+  const text = await response.text();
+  if (!text) {
+    return {};
+  }
+  try {
+    return JSON.parse(text) as unknown;
+  } catch {
+    throw new Error(
+      response.ok
+        ? "Server returned an invalid response."
+        : `Request failed (${response.status}). The feedback service may not be deployed yet.`
+    );
+  }
+}

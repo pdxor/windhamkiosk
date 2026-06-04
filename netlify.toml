@@ -7,3 +7,10 @@
 
 [functions]
   directory = "netlify/functions"
+
+# Serve live persisted feedback for agents and browsers (not the static build file).
+[[redirects]]
+  from = "/feedback.json"
+  to = "/.netlify/functions/feedback"
+  status = 200
+  force = true
