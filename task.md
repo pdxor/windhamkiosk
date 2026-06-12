@@ -55,6 +55,28 @@ existing landing page.
 - [x] Netlify function `netlify/functions/feedback` (Blobs) for production saves
 - [x] Page at `/feedback` with form + published list
 - [x] Nav link from home header; agent-readable `/feedback.json`
+- [x] Feedback applied: graphic-only header logo, borderless header, removed duplicate hero logo
+
+---
+
+# Task: Private help requests
+
+- [x] Public form at `/request-help` (POST only, no public listing)
+- [x] Organizer inbox at `/help/inbox` (access code = `HELP_REQUEST_ADMIN_SECRET`)
+- [x] Netlify function + local API; Blobs store separate from public feedback
+- [x] Home `#connect` CTA + nav link
+- [ ] Deploy: set `HELP_REQUEST_ADMIN_SECRET` in Netlify env and share inbox URL + code with Milly
 - Reuses existing design tokens in `app/globals.css` (forest-green, earth-brown,
   cream) and adds priority accent tokens.
 - Data is static/in-code for now (no database). See `databasechanges.md`.
+
+---
+
+# Task: Apply Jun 11 site feedback
+
+- [x] Hero H1 — Windham, Ashland, and Jewett
+- [x] `#connect` section — inclusive copy
+- [x] Welcome Wagon section — shorter feedback copy (#4)
+- [x] Top nav + footer — Events links to `/events`
+- [x] Events page — potluck spotlight, placeholder calendar, event gallery
+- [ ] Dynamic calendar (future)

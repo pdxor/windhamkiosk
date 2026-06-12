@@ -1,0 +1,32 @@
+---
+description: Check Milly/site feedback at the start of every session before other work
+alwaysApply: true
+---
+
+# Site feedback — check every new session
+
+At the **beginning of each conversation** on this project (before implementing unrelated requests), fetch and review live site feedback.
+
+## Source (in order)
+
+1. **Live JSON:** `https://windhamkiosk.netlify.app/feedback.json`
+2. **Fallback:** `public/feedback.json` or `data/feedback.json` in the repo if the URL is unreachable
+3. **Human view:** `https://windhamkiosk.netlify.app/feedback` for context
+
+## What to do
+
+- Parse `entries` (newest first by `createdAt`).
+- Summarize **open, actionable** notes for the user (author, page/section, message).
+- If the user’s task overlaps feedback, **implement or explicitly defer** those items; do not ignore relevant notes.
+- If there is no new feedback since the last known state, say so briefly and continue.
+- Do not run SQL or change production databases when acting on feedback — UI/content changes only unless the user asks otherwise.
+
+## Entry shape
+
+```json
+{ "id", "author", "message", "page", "createdAt" }
+```
+
+## When to skip
+
+Only skip if the user explicitly says “ignore feedback” or the session is purely informational with no site work.

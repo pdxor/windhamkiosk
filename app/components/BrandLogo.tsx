@@ -8,6 +8,7 @@ type BrandLogoProps = {
   imageClassName?: string;
   showTagline?: boolean;
   variant?: "header" | "hero";
+  href?: string;
 };
 
 const variantDefaults: Record<
@@ -15,12 +16,14 @@ const variantDefaults: Record<
   { imageClassName: string; showTagline: boolean }
 > = {
   header: {
-    imageClassName: "h-16 w-auto sm:h-[4.5rem]",
-    showTagline: true,
+    imageClassName:
+      "h-[4.25rem] w-auto drop-shadow-[0_2px_14px_rgba(255,255,255,0.85)] sm:h-24",
+    showTagline: false,
   },
   hero: {
-    imageClassName: "h-28 w-auto sm:h-36 lg:h-44",
-    showTagline: true,
+    imageClassName:
+      "h-28 w-auto drop-shadow-[0_4px_20px_rgba(255,255,255,0.9)] sm:h-36 lg:h-44",
+    showTagline: false,
   },
 };
 
@@ -29,6 +32,7 @@ export function BrandLogo({
   imageClassName,
   showTagline,
   variant = "header",
+  href = "/",
 }: BrandLogoProps) {
   const defaults = variantDefaults[variant];
   const resolvedImageClass = imageClassName ?? defaults.imageClassName;
@@ -36,28 +40,20 @@ export function BrandLogo({
 
   return (
     <a
-      href="#top"
-      className={`inline-flex max-w-full items-center gap-3 sm:gap-4 ${className}`}
+      href={href}
+      className={`inline-flex max-w-full shrink-0 items-center ${className}`}
     >
-      <span
-        className={
-          variant === "hero"
-            ? "shrink-0 rounded-[var(--radius)] border-2 border-white/80 bg-white/95 p-2 shadow-[0_12px_40px_rgba(47,52,51,0.18)] sm:p-3"
-            : "shrink-0"
-        }
-      >
-        <Image
-          src="/logo.jpg"
-          alt="KIOSK — Keeping It Open, Supportive and Kind"
-          width={200}
-          height={200}
-          unoptimized
-          priority={variant === "hero"}
-          className={`${resolvedImageClass} object-contain`}
-        />
-      </span>
+      <Image
+        src="/logo.jpg"
+        alt="KIOSK — Keeping It Open, Supportive and Kind"
+        width={200}
+        height={200}
+        unoptimized
+        priority={variant === "header" || variant === "hero"}
+        className={`${resolvedImageClass} object-contain`}
+      />
       {resolvedShowTagline ? (
-        <span className="min-w-0">
+        <span className="min-w-0 ps-3 sm:ps-4">
           <span className="brand-heading block text-xl font-bold leading-none text-[var(--earth-brown)] sm:text-2xl lg:text-3xl">
             KIOSK
           </span>

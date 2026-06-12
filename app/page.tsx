@@ -3,7 +3,7 @@ import { ButtonLink } from "./components/Button";
 import { FeatureGrid } from "./components/FeatureGrid";
 import { SectionHeading } from "./components/SectionHeading";
 import { SiteFooter } from "./components/SiteFooter";
-import { BrandLogo, THEME_LINE } from "./components/BrandLogo";
+import { THEME_LINE } from "./components/BrandLogo";
 import { SiteHeader } from "./components/SiteHeader";
 import { StatTile } from "./components/StatTile";
 import { ValueCards } from "./components/ValueCards";
@@ -100,8 +100,6 @@ export default function Home() {
             id="top"
             className="flex min-w-0 flex-1 flex-col justify-center gap-8 py-10 sm:gap-10 sm:py-14 lg:py-16"
           >
-            <BrandLogo variant="hero" className="w-fit max-w-full" />
-
             <div className="min-w-0 max-w-2xl lg:max-w-3xl">
               <p className="theme-line inline-block rounded-full border border-[var(--stone)] bg-white/85 px-4 py-2 text-lg font-semibold leading-snug text-[var(--earth-brown)] shadow-sm backdrop-blur-sm sm:text-xl lg:text-2xl">
                 {THEME_LINE}
@@ -110,7 +108,7 @@ export default function Home() {
                 Keeping It Open, Supportive &amp; Kind
               </p>
               <h1 className="brand-heading mt-3 text-3xl font-bold leading-[1.02] text-[var(--earth-brown)] sm:text-5xl lg:text-[3.5rem]">
-                Neighbors helping neighbors across the mountain towns.
+                Neighbors helping neighbors in Windham, Ashland, and Jewett.
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 sm:text-lg sm:leading-8">
                 Connect with people, places, stories, and opportunities that
@@ -224,9 +222,9 @@ export default function Home() {
               A warm first hello.
             </h2>
             <p className="mt-5 leading-8">
-              New homeowners can be welcomed with local guides, community
-              introductions, resident cards, resource connections, and small
-              gifts or coupons donated by local businesses and neighbors.
+              New homeowners will be welcomed with local guides, friendly
+              introductions, resource connections, greeting cards, and small gifts
+              or coupons donated by local businesses and neighbors.
             </p>
           </article>
           <article className="rounded-[var(--radius)] border border-[var(--stone)] bg-white p-7 shadow-sm">
@@ -275,7 +273,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Contact"
             title="Support is not always financial."
-            description="Sometimes people need connection, kindness, encouragement, transportation, companionship, or help navigating a difficult moment."
+            description="The Windham Kiosk is for everyone. Help, information, resources, and community support are available to all neighbors, regardless of income. Sometimes we need a little help and connection or simply neighbors helping neighbors again."
           />
 
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
@@ -293,6 +291,15 @@ export default function Home() {
                 <p className="mt-4 leading-7">{path.body}</p>
               </article>
             ))}
+          </div>
+
+          <div className="mt-10 flex flex-col items-center gap-4 text-center">
+            <p className="max-w-xl text-sm leading-7 text-[var(--charcoal)]/85">
+              Need connection or support? Send a{" "}
+              <strong className="text-[var(--earth-brown)]">private</strong> request
+              — only the KIOSK team can read it.
+            </p>
+            <ButtonLink href="/request-help">Send a private request</ButtonLink>
           </div>
         </div>
       </section>

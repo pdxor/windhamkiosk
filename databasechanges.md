@@ -16,6 +16,7 @@ environment it targets.
 | 2026-06-04 | n/a | — | Command Center dashboard added. Uses static in-code data (`app/lib/inbox.ts`). No SQL, RLS, or schema changes. | applied |
 | 2026-06-04 | n/a | — | Site feedback board: JSON files (`data/feedback.json`, `public/feedback.json`) + Netlify Blobs store `windham-kiosk-feedback` via `netlify/functions/feedback.mjs`. No D1/SQL/RLS. | applied |
 | 2026-06-04 | production (Netlify) | redirect | `/feedback.json` → `/.netlify/functions/feedback` so agents see live persisted entries, not the empty static file. | pending deploy |
+| 2026-06-04 | local / Netlify | storage | Private help requests: `data/help-requests.json` (local, gitignored) + Netlify Blobs `windham-kiosk-help-requests`. No public JSON. GET requires `HELP_REQUEST_ADMIN_SECRET`. | applied |
 
 > No SQL or RLS has been run against any production or staging database.
 > When a database is introduced, record every migration/policy here before

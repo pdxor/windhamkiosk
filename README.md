@@ -64,6 +64,13 @@ export default async function Home() {
 - `npm run build`: verify the vinext build output
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
+## Private help requests
+
+- **Public form:** `/request-help` — submissions are stored privately (not listed on the site).
+- **Organizer inbox:** `/help/inbox` — requires access code.
+- **Local dev:** default code is in `.env.example` (`dev-help-inbox-key-change-me`) unless you set `HELP_REQUEST_ADMIN_SECRET` in `.env`.
+- **Netlify:** add `HELP_REQUEST_ADMIN_SECRET` under Site → Environment variables, redeploy, then share the inbox URL and code with Milly only.
+
 ## Learn More
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)

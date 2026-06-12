@@ -3,7 +3,7 @@ import { BrandLogo } from "./BrandLogo";
 const exploreLinks = [
   { href: "#programs", label: "Community" },
   { href: "#digital", label: "Resources" },
-  { href: "#volunteer", label: "Events" },
+  { href: "/events", label: "Events" },
   { href: "#mission", label: "Places" },
 ];
 

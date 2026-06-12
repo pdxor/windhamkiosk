@@ -25,3 +25,6 @@ npm-debug.log*
 
 # local scratch
 outputs/
+
+# private help requests (PII) — never commit
+data/help-requests.json
